@@ -59,15 +59,16 @@ flag = Flag(
     rollout=25,  # 25% of users
     rules=[
         # ...but every enterprise customer always gets it:
-        TargetingRule(attribute="plan", comparator=Comparator.EQUALS,
-                      values=["enterprise"], serve=True),
+        TargetingRule(
+            attribute="plan", comparator=Comparator.EQUALS, values=["enterprise"], serve=True
+        ),
     ],
     default=False,
 )
 
 engine = FlagEngine()
 engine.is_enabled(flag, UserContext("carol", {"plan": "enterprise"}))  # True (rule)
-engine.is_enabled(flag, UserContext("dave", {"plan": "free"}))         # rollout-dependent
+engine.is_enabled(flag, UserContext("dave", {"plan": "free"}))  # rollout-dependent
 ```
 
 ## 🏗️ Architecture
